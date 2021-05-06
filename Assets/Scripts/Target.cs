@@ -12,7 +12,10 @@ public class Target : MonoBehaviour
     private const float minxpos = -3;
     private const float maxxpos = 3;
     private const float yspawnpos = -2;
+    private GameManager gameManager;
 
+    public int pointvalue;
+    public ParticleSystem explosion;
 
     void Start()
     {
@@ -20,6 +23,7 @@ public class Target : MonoBehaviour
         RandomForce();
         RandomTorque();
         RandomSpawnPosition();
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     void RandomForce()
@@ -40,7 +44,9 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
+        gameManager.UpdateScore(pointvalue);
         Destroy(gameObject);
+        Instantiate(explosion, transform.position, explosion.transform.rotation);        
     }
     private void OnTriggerEnter(Collider other)
     {
