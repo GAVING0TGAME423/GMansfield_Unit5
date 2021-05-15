@@ -9,19 +9,28 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> prefab;
-    private const float spawnrate = 1.5f;
+    private float spawnrate = 2f;
     public TextMeshProUGUI Scoretext;
     public TextMeshProUGUI GameOverText;
-    public bool gameactive = true;
+    public bool gameactive = false;
     public Button Restart;
+    public GameObject titlescreen;
     private int score = 0;
 
-    void Start()
+    public void StartGame(int difficulty)
     {
+        gameactive = true;
+        score = 0;
+        spawnrate = spawnrate / difficulty;
         StartCoroutine(SpawnTarget());
         UpdateScore(0);
-        
+        titlescreen.gameObject.SetActive(false);
+
     }
+
+    void Start()
+    {    }
+
     public void GameOver()
     {
         GameOverText.gameObject.SetActive(true);
